@@ -219,10 +219,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCam: {fileID: 2190943475917331663}
   mouseSensitivity: 3
-  sprintSpeed: 0
-  walkSpeed: 0
-  jumpForce: 0
-  smoothTime: 0
+  sprintSpeed: 8
+  walkSpeed: 5
+  smoothTime: 0.05
+  jumpVelocity: 9
+  fallMultiplier: 4
+  lowJumpMultiplier: 2
 --- !u!54 &6946203613542251085
 Rigidbody:
   m_ObjectHideFlags: 0
