@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerController : MonoBehaviour
 {
     //declaring components
     private Rigidbody rb;
     [SerializeField] private GameObject playerCam;
+    private PhotonView pv;
 
     //declaring variables
     [SerializeField] private float mouseSensitivity, sprintSpeed, walkSpeed, smoothTime, jumpVelocity = 6f, fallMultiplier = 2.5f, lowJumpMultiplier = 2f;
@@ -18,23 +20,29 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = this.GetComponent<Rigidbody>();
+        pv = this.GetComponent<PhotonView>();
     }
 
     private void Start()
     {
-        playerCam.SetActive(true);
+        if(!pv.IsMine)
+        {
+            Destroy(GetComponentInChildren<Camera>().gameObject);
+            Destroy(rb);
+        }
     }
 
     private void Update()
     {
+        if (!pv.IsMine) return;
         lookAround();
         getInput();
         jump();
-        Debug.Log(grounded);
     }
 
     private void FixedUpdate()
     {
+        if (!pv.IsMine) return;
         move();
     }
 
